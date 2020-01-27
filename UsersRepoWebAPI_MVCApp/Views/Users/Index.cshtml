@@ -1,0 +1,57 @@
+﻿@model IEnumerable<UsersRepoWebAPI_MVCApp.Models.mvcUsersModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a href="@Url.Action("AddOrEdit","Users")" class="btn btn-default">Create New</a>
+</p>
+<table class="table table-striped">
+    <thead class="table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.address)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.address)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.id })*@
+                <a href="@Url.Action("AddOrEdit", "Users", new { id = item.id})" class="btn btn-default"><i class="fa fa-pencil">Edytuj</i></a>
+                <a onclick="Delete(@item.id)" class="btn btn-default"><i class="fa fa-trash">Usuń</i></a>
+            </td>
+        </tr>
+    }
+
+</table>
+@section scripts {
+    <script>
+        function Delete(id) {
+            window.location.href = '@Url.Action("Delete","Users")/' + id;
+        }
+    </script>
+}
